@@ -1,0 +1,1 @@
+export const CASBIN_ENFORCER = Symbol('CASBIN_ENFORCER')
