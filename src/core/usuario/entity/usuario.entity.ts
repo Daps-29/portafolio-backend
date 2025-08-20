@@ -12,6 +12,8 @@ import {
 } from 'typeorm'
 import { UsuarioRol } from '../../authorization/entity/usuario-rol.entity'
 import { Persona } from './persona.entity'
+import { Habilidad } from './habilidad.entity'
+import { RedSocial } from './red-social.entity'
 import dotenv from 'dotenv'
 import { AuditoriaEntity } from '../../../common/entity/auditoria.entity'
 import { Status } from '../../../common/constants'
@@ -131,6 +133,12 @@ export class Usuario extends AuditoriaEntity {
     referencedColumnName: 'id',
   })
   persona: Persona
+
+  @OneToMany(() => Habilidad, (habilidad) => habilidad.usuario)
+  habilidades: Habilidad[]
+
+  @OneToMany(() => RedSocial, (redSocial) => redSocial.usuario)
+  redesSociales: RedSocial[]
 
   constructor(data?: Partial<Usuario>) {
     super(data)
