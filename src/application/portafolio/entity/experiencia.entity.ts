@@ -4,6 +4,7 @@ import {
   Column,
   BeforeInsert,
   Check,
+  CreateDateColumn,
 } from 'typeorm'
 import { AuditoriaEntity } from '../../../common/entity/auditoria.entity'
 import { UtilService } from '@/common/lib/util.service'
@@ -25,11 +26,22 @@ export class Experiencia extends AuditoriaEntity {
   @Column({ length: 100, type: 'varchar', comment: 'Puesto o cargo' })
   puesto: string
 
-  @Column({ type: 'date', comment: 'Fecha de inicio' })
+  @CreateDateColumn({
+    name: 'fecha_inicio',
+    type: 'timestamp without time zone',
+    nullable: false,
+    default: () => 'now()',
+  })
   fechaInicio: Date
 
-  @Column({ type: 'date', nullable: true, comment: 'Fecha de fin' })
-  fechaFin: Date
+  @CreateDateColumn({
+    name: 'fecha_fin',
+    type: 'timestamp without time zone',
+    nullable: true,
+    default: () => 'now()',
+    comment: 'Fecha de creación',
+  })
+  fechaFin: Date | null
 
   @Column({
     length: 255,
@@ -37,7 +49,7 @@ export class Experiencia extends AuditoriaEntity {
     nullable: true,
     comment: 'Descripción de la experiencia',
   })
-  descripcion: string
+  descripcion: string | null
 
   constructor(data?: Partial<Experiencia>) {
     super(data)

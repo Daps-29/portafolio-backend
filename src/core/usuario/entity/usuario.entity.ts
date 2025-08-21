@@ -12,12 +12,12 @@ import {
 } from 'typeorm'
 import { UsuarioRol } from '../../authorization/entity/usuario-rol.entity'
 import { Persona } from './persona.entity'
-import { Habilidad } from './habilidad.entity'
-import { RedSocial } from './red-social.entity'
 import dotenv from 'dotenv'
 import { AuditoriaEntity } from '../../../common/entity/auditoria.entity'
 import { Status } from '../../../common/constants'
 import process from 'process'
+import { RedSocial } from '@/application/portafolio/entity/red-social.entity'
+import { Habilidad } from '@/application/portafolio/entity/habilidad.entity'
 dotenv.config()
 
 export const UsuarioEstado = {

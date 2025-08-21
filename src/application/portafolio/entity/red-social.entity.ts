@@ -5,10 +5,11 @@ import {
   ManyToOne,
   BeforeInsert,
   Check,
+  JoinColumn,
 } from 'typeorm'
-import { Usuario } from './usuario.entity'
 import { AuditoriaEntity } from '../../../common/entity/auditoria.entity'
 import { UtilService } from '@/common/lib/util.service'
+import { Usuario } from '@/core/usuario/entity/usuario.entity'
 
 export const RedSocialEstado = {
   ACTIVO: 'ACTIVO',
@@ -16,7 +17,7 @@ export const RedSocialEstado = {
 }
 
 @Check(UtilService.buildStatusCheck(RedSocialEstado))
-@Entity({ name: 'redes_sociales', schema: process.env.DB_SCHEMA_USUARIOS })
+@Entity({ name: 'redes_sociales', schema: process.env.DB_SCHEMA_PORTAFOLIO })
 export class RedSocial extends AuditoriaEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
   id: string
@@ -27,8 +28,20 @@ export class RedSocial extends AuditoriaEntity {
   @Column({ length: 255, type: 'varchar', comment: 'URL del perfil' })
   url: string
 
+  @Column({
+    name: 'id_usuario',
+    type: 'uuid',
+    nullable: false,
+    comment: 'clave foránea que referencia la tabla de Usuarios',
+  })
+  idUsuario: string
+
   @ManyToOne(() => Usuario, (usuario) => usuario.redesSociales, {
     nullable: false,
+  })
+  @JoinColumn({
+    name: 'id_usuario',
+    referencedColumnName: 'id',
   })
   usuario: Usuario
 
